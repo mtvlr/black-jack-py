@@ -41,7 +41,7 @@ def blackjack():
 
 def main():
     chips = 100
-    while chips != 0:
+    while chips > 0:
         bet = get_bet()
 
         chips = chips - bet
@@ -61,6 +61,11 @@ def main():
             print("You won. You have ")
             chips = chips + bet + bet
             print(chips)
+    
+    if chips < 0:
+        print("You own us money! Sell everything and give money back")
+        return
+
     print("You have gambled all your money, now you own us a lot of money, sell the house! ")
 
 main()
