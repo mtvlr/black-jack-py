@@ -21,33 +21,36 @@ def card_value(karta1):
         return 10
     if karta1 == "Ace":
         return 11
+def main():
+    chips = 100
+    while chips != 0:
+        diler = 0
+        player = 0
+        bet = get_bet()
 
-chips = 100
-diler = 0
-player = 0
-bet = get_bet()
+        deck = new_deck()
+        chips = chips - bet
 
-deck = new_deck()
-chips = chips - bet
+        while player < 21 and diler < 21:
+            karta1 = deck.pop() 
+            karta2 = deck.pop()
+            player = player + card_value(karta1)
+            diler = diler + card_value(karta2)
+            print(karta1, karta2, player, diler)
 
-while player < 21 and diler < 21:
-    karta1 = deck.pop() 
-    karta2 = deck.pop()
-    player = player + card_value(karta1)
-    diler = diler + card_value(karta2)
-    print(karta1, karta2, player, diler)
+        if player > 21 or (player < diler and diler < 21): 
+            print("You lost. You have ")
+            print(chips)
 
-if player > 21 or (player < diler and diler < 21): 
-    print("You lost. You have ")
-    print(chips)
+        elif player == 21 and diler == 21:
+            print("Tie. You have ")
+            chips = chips + bet
+            print(chips)
 
-elif player == 21 and diler == 21:
-    print("Tie. You have ")
-    chips = chips + bet
-    print(chips)
+        else:
+            print("You won. You have ")
+            chips = chips + bet + bet
+            print(chips)
+    print("You have gambled all your money, now you own us a lot of money, sell the house! ")
 
-else:
-    print("You won. You have ")
-    chips = chips + bet + bet
-    print(chips)
-
+main()
