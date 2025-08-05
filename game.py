@@ -7,12 +7,14 @@ def new_deck():
     random.shuffle(cards) 
     return cards
 
+
 def get_bet():
     while True:
         user_input = input("Please make your bet: ")
         if user_input.isdigit():
             return int(user_input)
         print("Not valid format")
+
 
 def card_value(karta1):
     if karta1.isnumeric():
@@ -21,22 +23,30 @@ def card_value(karta1):
         return 10
     if karta1 == "Ace":
         return 11
+
+
+def blackjack():
+    player = 0
+    diler = 0
+    deck = new_deck()
+    while player < 21 and diler < 21:
+        karta1 = deck.pop() 
+        karta2 = deck.pop()
+        player = player + card_value(karta1)
+        diler = diler + card_value(karta2)
+        print(karta1, karta2, player, diler)
+    return player, diler
+
+
+
 def main():
     chips = 100
     while chips != 0:
-        diler = 0
-        player = 0
         bet = get_bet()
 
-        deck = new_deck()
         chips = chips - bet
 
-        while player < 21 and diler < 21:
-            karta1 = deck.pop() 
-            karta2 = deck.pop()
-            player = player + card_value(karta1)
-            diler = diler + card_value(karta2)
-            print(karta1, karta2, player, diler)
+        player, diler = blackjack()
 
         if player > 21 or (player < diler and diler < 21): 
             print("You lost. You have ")
